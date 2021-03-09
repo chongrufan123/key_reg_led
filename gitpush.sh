@@ -7,12 +7,13 @@
 # permission: 
 #########################################################################
 #!/bin/Bash
-
+count=1
 git push &> /dev/null
 while [ $(echo $?) != '0' ]
     do
+        count=$((1+$count))
         git push &> /dev/null
     done
 
-mail -s "$(basename $(pwd)) push ok" pi <<< ""
-
+echo "本次push尝试了$count次成功" | mail -s "$(basename $(pwd)) push ok" pi 
+wall "$(basename $(pwd)) push ok"
